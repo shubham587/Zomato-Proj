@@ -1,6 +1,16 @@
+// importing env variables
+require("dotenv").config();
+
+// libraries
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+
+// microservice routes
+import Auth from "./API/Auth";
+
+// database connection
+import ConnectDB from "./database/connection";
 
 const zomato = express();
 
@@ -12,7 +22,14 @@ zomato.use(helmet());
 zomato.use(cors());
 // cors is used to allow other api.
 
+// application routes 
+zomato.get("/auth", Auth);
+
 zomato.get("/", (request,response) => response.json({ message : "Setup success"}));
 
-zomato.listen(6000, () => console.log("Server is running"));
+zomato.listen(4000, () => 
+ConnectDB()
+.then( () =>console.log("Server is running"))
+.catch(() => console.log("Server is running, but database connection failed"))
+);
 
