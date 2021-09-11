@@ -45,17 +45,17 @@ Params    none
 Access    Public
 Method    POST  
 */
-Router.post("/signin", async (req, res) => {
+Router.post("/signin", async (request, response) => {
     try {
-     const { email, phoneNumber} = request.body.credentials;  
-      await ValidateSignin(req.body.credentials);
+    const { email, phoneNumber} = request.body.credentials;  
+      // await ValidateSignin(request.body.credentials);
   
-      const user = await UserModel.findByEmailAndPassword(req.body.credentials);
+      const user = await UserModel.findByEmailAndPassword(request.body.credentials);
   
       const token = user.generateJwtToken();
-      return res.status(200).json({ token, status: "success" });
+      return response.status(200).json({ token, status: "success" });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return response.status(500).json({ error: error.message });
     }
   });
   
