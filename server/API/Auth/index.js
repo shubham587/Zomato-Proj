@@ -47,6 +47,7 @@ Method    POST
 */
 Router.post("/signin", async (req, res) => {
     try {
+     const { email, phoneNumber} = request.body.credentials;  
       await ValidateSignin(req.body.credentials);
   
       const user = await UserModel.findByEmailAndPassword(req.body.credentials);
