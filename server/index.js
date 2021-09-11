@@ -23,11 +23,11 @@ zomato.use(cors());
 // cors is used to allow other api.
 
 // application routes 
-zomato.get("/auth", Auth);
+zomato.use("/auth", Auth);
 
 zomato.get("/", (request,response) => response.json({ message : "Setup success"}));
 
-zomato.listen(4000, () => 
+zomato.listen(1000, () => 
 ConnectDB()
 .then( () =>console.log("Server is running"))
 .catch(() => console.log("Server is running, but database connection failed"))
